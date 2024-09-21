@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>검 강화하기</h2>
+    <a href = "{% url 'Index_Page' %}">뒤로가기</a>
+    <hr>
+    <br>
+    <ul>
+        + {{ sword_level }} 검
+    </ul>
+    <br>
+    <ul>
+        <a href = "{% url 'Sword_Upgrade' %}">강화하기</a>
+    </ul>
+    <ul>
+        <a href = "{% url 'Sword_Sell' sword_level %}">팔기</a>
+    </ul>
+    <ul>
+        소지금 : {{ user.money }}
+    </ul>
+    <ul>
+        <a href = "{% url 'Money_Reset' %}">소지금 초기화</a>
+    </ul>
+    <ul>
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+    </ul>
+</body>
+</html>
