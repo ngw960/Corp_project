@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Users
+from django.contrib.auth import login
 
 
 
@@ -41,3 +42,37 @@ def Signup_Action(request):
     else:
         return redirect('Signup_Page')
 
+
+def Login_Page(request):
+    return render(request, "login.html")
+
+
+def Login_Action(request):
+    # 입력받은 값 정의
+    var_user_id = request.POST.get('input_user_id')
+    var_password = request.POST.get('input_password')
+
+    # 빈 필드가 없는지 검증
+    if var_user_id and var_password:
+
+        select_user = Users.objects.filter(user_id = var_user_id).first()
+
+        if select_user:
+      
+            if select_user.password == var_password:
+                # 사용자를 로그인한다
+                login(request, select_user)
+
+                return render(request, 'index.html')
+
+            else:
+                return redirect('Login_Page')
+        
+        else:
+            return redirect('Login_Page')
+    
+
+def Logout(request):
+    request.session.flush()
+
+    return redirect('Index_Page')
