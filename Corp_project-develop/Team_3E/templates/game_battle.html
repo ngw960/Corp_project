@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Page & 결과</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        .battle-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .character {
+            text-align: center;
+        }
+
+        .log-container {
+            width: 400px;
+            height: 200px;
+            overflow-y: auto;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+
+        .log-box {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .attack-form {
+            margin-top: 20px;
+        }
+
+        .character img {
+            width: 100px;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .result-message {
+            margin-top: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            color: green;
+        }
+
+        .result-message.fail {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 승리 또는 패배 메시지 표시 영역 -->
+    {% if battle_result == 'win' %}
+        <div class="result-message">
+            축하합니다! 전투에서 승리했습니다!
+        </div>
+        <div class="action-buttons"></div>
+            <a href="{% url '도전' %}">도전창으로</a>
+            <a href="{% url '게임_메인' %}">홈으로 이동</a>
+        </div>
+    {% elif battle_result == 'lose' %}
+        <div class="result-message fail">
+            아쉽게도 패배했습니다.
+        </div>
+        <div class="action-buttons"></div>
+            <a href="{% url '배틀_초기화' level %}">다시 시도하기</a>
+            <a href="{% url '게임_메인' %}">홈으로 이동</a>
+        </div>
+    {% endif %}
+
+    <div class="battle-container">
+        <div class="character">
+            <h3>플레이어</h3>
+            <p>HP: {{ player_hp }} / {{ player_max_hp }}</p> 
+            <img src="플레이어 이미지 URL" alt="플레이어 이미지">
+        </div>
+
+        <div class="character">
+            <h3>상대방</h3>
+            <p>상대방 HP: {{ opponent_hp }}</p>
+            <img src="상대방 이미지 URL" alt="상대방 이미지">
+        </div>
+    </div>
+
+    <div class="log-container" id="log-container">
+        {% for log in battle_logs %}
+        <div class="log-box">
+            {{ log }}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="attack-form">
+        {% if battle_result is None %}
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" name="attack_type" value="strong">강한 공격</button>
+                <button type="submit" name="attack_type" value="weak">약한 공격</button>
+            </form>
+        {% endif %}
+    </div>
+
+    <script>
+        var logContainer = document.getElementById('log-container');
+        logContainer.scrollTop = logContainer.scrollHeight;
+    </script>
+
+</body>
+</html>

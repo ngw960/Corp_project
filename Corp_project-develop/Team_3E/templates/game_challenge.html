@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도전 단계 선택</title>
+    <style>
+        body {
+            background-image: url("{% static 'images/background.png' %}"); /* 배경 이미지 경로 */
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7); /* 반투명한 배경 */
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 18px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button-clear {
+            background-color: #5cb85c;
+        }
+
+        .button-clear:hover {
+            background-color: #4cae4c;
+        }
+
+        .button-fail {
+            background-color: #d9534f;
+        }
+
+        .button-fail:hover {
+            background-color: #c9302c;
+        }
+
+        h1 {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="level-container">
+        <!-- 레벨 버튼들 -->
+        {% for level in levels %}
+            {% if level <= max_level %}
+                <button class="level-button cleared" disabled>{{ level }}단계 (클리어됨)</button>
+            {% elif level == next_level %}
+                <!-- 레벨 선택 시 전투 상태를 초기화 -->
+                <a href="{% url '배틀_초기화' level %}">
+                    <button class="level-button">{{ level }}단계</button>
+                </a>
+            {% else %}
+                <button class="level-button locked" disabled>{{ level }}단계 (잠김)</button>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>
