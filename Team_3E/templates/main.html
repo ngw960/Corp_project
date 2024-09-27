@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main.css' %}">  
+    <title>메인 페이지</title>
+</head>
+<body>
+
+    <h2>INDEX</h2>
+
+    {% if request.user.id %}
+        {{ request.user.name }} 님 환영합니다.
+        <br>
+
+        {% if request.user.character_set.exists %}  <!-- 캐릭터가 있는 경우 -->
+            <h3>내 캐릭터 목록</h3>
+            <ul>
+                {% for character in request.user.character_set.all %}
+                    <li>
+                        이름: {{ character.name }} | 레벨: {{ character.level }}
+                        <a href="{% url '캐릭터_상세정보' character.id %}">자세히 보기</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>현재 생성된 캐릭터가 없습니다.</p>
+            <a href="{% url '캐릭터_생성' %}" class="btn">캐릭터 생성하기</a>
+        {% endif %}
+
+        <br>
+        <a href="{% url '캐릭터_목록' %}" class="btn">캐릭터 목록 조회</a>  <!-- 캐릭터 목록 조회 링크 추가 -->
+        <br>
+        <a href="{% url '게임_메인' %}" class="btn">게임 메인화면</a>  <!-- 게임 메인화면 링크 추가 -->
+        
+        <br>
+        <a href="{% url '로그아웃' %}">로그아웃</a>
+        <a href="{% url '마이페이지' %}">내 계정</a>
+        
+    {% else %}
+        <a href="{% url '회원가입' %}">회원가입</a>
+        <a href="{% url '로그인' %}">로그인</a>
+    {% endif %}
+
+</body>
+</html>
