@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게임 시작화면</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .character {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            background-color: #fff;
+            width: 100%;
+        }
+        .exp-bar {
+            width: 90%;
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .exp-bar .fill {
+            height: 100%;
+            width: 50%; /* 경험치 %에 따라 width 변경 */
+            background-color: #4caf50;
+        }
+        .menu {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            background-color: #fff;
+            border-top: 1px solid #ccc;
+        }
+        .menu a {
+            padding: 15px;
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            font-size: 18px;
+        }
+        .menu a:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url '게임_메인' %}"></a>
+    <div class="character">
+        <!-- 캐릭터 이미지 또는 캐릭터 정보 표시 -->
+        캐릭터창
+    </div>
+
+    <div class="exp-bar">
+        <div class="fill"></div> <!-- 경험치 바 내부 -->
+    </div>
+
+    <div class="menu">
+        <a href="{% url '랭킹' %}">랭킹</a>
+        <a href="{% url '유저 목록' %}">유저 목록</a>
+        <a href="{% url '도전' %}">도전</a>
+        <a href="{% url '상점' %}">상점</a>
+    </div>
+</body>
+</html>

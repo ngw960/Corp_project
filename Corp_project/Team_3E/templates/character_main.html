@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <title>캐릭터 목록</title>
+</head>
+<body>
+
+    <h2>내 캐릭터 목록</h2>
+
+    <ul>
+        {% for character in characters %}
+            <li>
+                이름: {{ character.name }} | 설명: {{ character.description }}
+                <a href="{% url '캐릭터_상세정보' character.id %}">자세히 보기</a>
+            </li>
+        {% empty %}
+            <p>생성된 캐릭터가 없습니다.</p>
+            <a href="{% url '캐릭터_생성' %}" class="btn">캐릭터 생성하기</a>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

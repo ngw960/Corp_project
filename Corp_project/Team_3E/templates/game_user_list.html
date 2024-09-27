@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유저 목록</title>
+</head>
+<body>
+    유저 목록
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>유저 ID</th>
+            <th>이름</th>
+            <th>이메일</th>
+            <th>방문하기</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ user.user_id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td><a href="{% url '유저 목록_방문' user.id %}">방문하기</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

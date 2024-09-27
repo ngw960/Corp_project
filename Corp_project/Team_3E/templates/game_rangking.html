@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    랭킹
+    <table>
+        <tr>
+            <th>순위</th>
+            <th>캐릭터 이름</th>
+            <th>레벨</th>
+            <th>체력</th>
+            <th>소유자</th>
+        </tr>
+        {% for character in characters %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ character.name }}</td>
+            <td>{{ character.level }}</td>
+            <td>{{ character.health }}</td>
+            <td>{{ character.user.user_id }}({{ character.user.name }})</td>
+            <td><a href="{% url '랭킹_상세보기' character.id%}">상세보기</a></td>
+        </tr>
+        {% endfor %}
+        <!-- {{user.characters.name}} -->
+    </table>
+</body>
+</html>

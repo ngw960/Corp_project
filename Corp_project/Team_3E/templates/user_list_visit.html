@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.name }}님의 정보</title>
+</head>
+<body>
+    <h1>{{ user.name }} 님의 정보</h1>
+    <h2>보유 캐릭터 목록:</h2>
+    <ul>
+        {% for character in user.characters.all %}
+            <li>{{ character.name }} (레벨: {{ character.level }}, 체력: {{ character.health }})</li>
+        {% empty %}
+            <li>등록된 캐릭터가 없습니다.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
